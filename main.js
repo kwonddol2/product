@@ -1,89 +1,125 @@
 class LottoGenerator extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({ mode: 'open' });
-
-    const wrapper = document.createElement('div');
-    wrapper.setAttribute('class', 'container');
-
-    const title = document.createElement('h1');
-    title.textContent = 'Lotto Number Generator';
-
-    const numbersContainer = document.createElement('div');
-    numbersContainer.setAttribute('class', 'numbers');
-
-    const button = document.createElement('button');
-    button.textContent = 'Generate Numbers';
-    button.addEventListener('click', () => this.generateNumbers(numbersContainer));
-
-    const style = document.createElement('style');
-    style.textContent = `
-      .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background-color: #f0f0f0;
-        font-family: sans-serif;
-      }
-      h1 {
-        color: #333;
-      }
-      .numbers {
-        display: flex;
-        margin: 20px 0;
-      }
-      .number {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px;
-        height: 50px;
-        margin: 0 5px;
-        border-radius: 50%;
-        background-color: #fff;
-        border: 2px solid #ccc;
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-      }
-      button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #4CAF50;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-    `;
-
-    shadow.appendChild(style);
-    shadow.appendChild(wrapper);
-    wrapper.appendChild(title);
-    wrapper.appendChild(numbersContainer);
-    wrapper.appendChild(button);
-
-    this.generateNumbers(numbersContainer);
+    this.attachShadow({ mode: 'open' });
+    this.theme = localStorage.getItem('theme') || 'light';
+    this.render();
   }
 
-  generateNumbers(container) {
-    container.innerHTML = '';
+  toggleTheme() {
+    this.theme = this.theme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', this.theme);
+    this.render();
+  }
+
+  generateNumbers() {
     const numbers = new Set();
     while (numbers.size < 6) {
       numbers.add(Math.floor(Math.random() * 45) + 1);
     }
+    return [...numbers].sort((a, b) => a - b);
+  }
 
-    for (const number of [...numbers].sort((a, b) => a - b)) {
-      const numberElement = document.createElement('div');
-      numberElement.setAttribute('class', 'number');
-      numberElement.textContent = number;
-      container.appendChild(numberElement);
-    }
+  render() {
+    const numbers = this.generateNumbers();
+    const isDark = this.theme === 'dark';
+
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          --bg-color: ${isDark ? '#1a1a1a' : '#f0f0f0'};
+          --container-bg: ${isDark ? '#2d2d2d' : '#ffffff'};
+          --text-color: ${isDark ? '#ffffff' : '#333333'};
+          --button-bg: #4CAF50;
+          --button-hover: #45a049;
+          --number-bg: ${isDark ? '#3d3d3d' : '#ffffff'};
+          --number-border: ${isDark ? '#555555' : '#cccccc'};
+          display: block;
+          height: 100vh;
+        }
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          background-color: var(--bg-color);
+          font-family: sans-serif;
+          transition: background-color 0.3s ease;
+          color: var(--text-color);
+        }
+        .theme-toggle {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          padding: 8px 16px;
+          cursor: pointer;
+          border-radius: 20px;
+          border: 1px solid var(--number-border);
+          background: var(--container-bg);
+          color: var(--text-color);
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+        h1 {
+          margin-bottom: 30px;
+        }
+        .numbers {
+          display: flex;
+          margin: 20px 0;
+        }
+        .number {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 50px;
+          height: 50px;
+          margin: 0 8px;
+          border-radius: 50%;
+          background-color: var(--number-bg);
+          border: 2px solid var(--number-border);
+          font-size: 24px;
+          font-weight: bold;
+          color: var(--text-color);
+          transition: all 0.3s ease;
+        }
+        .controls {
+          margin-top: 20px;
+        }
+        button.generate-btn {
+          padding: 12px 24px;
+          border: none;
+          border-radius: 5px;
+          background-color: var(--button-bg);
+          color: white;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+        button.generate-btn:hover {
+          background-color: var(--button-hover);
+        }
+      </style>
+      <div class="container">
+        <button class="theme-toggle" id="themeBtn">
+          ${isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
+        </button>
+        <h1>Lotto Number Generator</h1>
+        <div class="numbers" id="numbersContainer">
+          ${numbers.map(n => `<div class="number">${n}</div>`).join('')}
+        </div>
+        <div class="controls">
+          <button class="generate-btn" id="generateBtn">Generate Numbers</button>
+        </div>
+      </div>
+    `;
+
+    this.shadowRoot.getElementById('themeBtn').addEventListener('click', () => this.toggleTheme());
+    this.shadowRoot.getElementById('generateBtn').addEventListener('click', () => {
+      const container = this.shadowRoot.getElementById('numbersContainer');
+      const newNumbers = this.generateNumbers();
+      container.innerHTML = newNumbers.map(n => `<div class="number">${n}</div>`).join('');
+    });
   }
 }
 
