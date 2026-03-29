@@ -1,13 +1,36 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Korean Slang - 오늘 한국어 신조어</title>
+    <title>K-Bakery Hot 20 Guide | 한국 빵집 가이드</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for cute aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Quicksand:wght@500;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 </head>
 <body>
-    <slang-learning-app></slang-learning-app>
+    <div class="brochure-container">
+        <header>
+            <div class="sticker sticker-bread">🍞</div>
+            <div class="sticker sticker-heart">❤️</div>
+            <h1>Seoul Hot Bakery Guide</h1>
+            <p class="subtitle">20 Trendiest Spots to Visit in 2026!</p>
+            <div class="language-toggle">
+                <button id="btn-en" class="active">English</button>
+                <button id="btn-jp">日本語</button>
+            </div>
+        </header>
+
+        <main id="bakery-grid">
+            <!-- Bakery cards will be injected here by JS -->
+        </main>
+
+        <footer>
+            <p>&copy; 2026 K-Bakery Guide | Happy Bready Day! 🥐</p>
+        </footer>
+    </div>
+
+    <!-- Script for rendering and interactions -->
     <script src="main.js"></script>
 </body>
 </html>
