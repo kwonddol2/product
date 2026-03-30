@@ -212,12 +212,52 @@ function updateStaticText() {
     const title = document.querySelector('header h1');
     const subtitle = document.querySelector('.subtitle');
     
+    // Form elements
+    const formTitle = document.getElementById('form-title');
+    const formSubtitle = document.getElementById('form-subtitle');
+    const labelName = document.getElementById('label-name');
+    const labelEmail = document.getElementById('label-email');
+    const labelCompany = document.getElementById('label-company');
+    const labelMessage = document.getElementById('label-message');
+    const btnSubmit = document.getElementById('btn-submit');
+    
+    const inputName = document.getElementById('name');
+    const inputEmail = document.getElementById('email');
+    const inputCompany = document.getElementById('company');
+    const inputMessage = document.getElementById('message');
+
     if (currentLang === 'en') {
         title.textContent = 'Seoul Hot Bakery Guide';
         subtitle.textContent = '20 Trendiest Spots to Visit in 2026!';
+        
+        formTitle.textContent = 'Partnership Inquiry';
+        formSubtitle.textContent = 'Want to collaborate with us? Send us a message!';
+        labelName.textContent = 'Full Name';
+        labelEmail.textContent = 'Email Address';
+        labelCompany.textContent = 'Company / Organization';
+        labelMessage.textContent = 'Message';
+        btnSubmit.textContent = 'Send Inquiry';
+        
+        inputName.placeholder = 'Your name';
+        inputEmail.placeholder = 'your@email.com';
+        inputCompany.placeholder = 'Your company';
+        inputMessage.placeholder = 'How can we work together?';
     } else {
         title.textContent = 'ソウル人気ベーカリーガイド';
         subtitle.textContent = '2026年、今最もホットな20の名店！';
+        
+        formTitle.textContent = '提携のお問い合わせ';
+        formSubtitle.textContent = 'コラボレーションをご希望ですか？メッセージをお送りください！';
+        labelName.textContent = 'お名前';
+        labelEmail.textContent = 'メールアドレス';
+        labelCompany.textContent = '会社名 / 団体名';
+        labelMessage.textContent = 'メッセージ';
+        btnSubmit.textContent = 'お問い合わせを送信';
+        
+        inputName.placeholder = 'お名前をご記入ください';
+        inputEmail.placeholder = 'your@email.com';
+        inputCompany.placeholder = '会社名をご記入ください';
+        inputMessage.placeholder = 'どのような提携をお考えですか？';
     }
 }
 

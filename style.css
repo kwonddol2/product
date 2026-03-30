@@ -102,6 +102,101 @@ header h1 {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 40px;
     padding: 20px;
+    margin-bottom: 60px;
+}
+
+/* Partnership Form Style */
+.form-container {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-card {
+    background: var(--paper-color);
+    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    position: relative;
+    border: 2px solid var(--accent-pink);
+    border-radius: 10px;
+}
+
+.form-card::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    width: 60px;
+    height: 25px;
+    background: var(--tape-color);
+    transform: rotate(5deg);
+}
+
+.sticker-star { top: -20px; left: -20px; font-size: 2rem; transform: rotate(-10deg); }
+
+.form-card h2 {
+    font-family: 'Gaegu', cursive;
+    font-size: 2.2rem;
+    color: var(--accent-brown);
+    margin-bottom: 10px;
+}
+
+.form-card p {
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--accent-brown);
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid #eee;
+    border-radius: 8px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-pink);
+}
+
+#btn-submit {
+    width: 100%;
+    padding: 15px;
+    background: var(--accent-brown);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Gaegu', cursive;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+#btn-submit:hover {
+    background: var(--accent-pink);
+    transform: scale(1.02);
+}
+
+#btn-submit:active {
+    transform: scale(0.98);
 }
 
 /* Bakery Card Style (Polaroid) */
