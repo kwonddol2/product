@@ -199,6 +199,17 @@ header h1 {
     transform: scale(0.98);
 }
 
+/* Comments Section */
+.comments-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 30px;
+    background: var(--paper-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
 /* Bakery Card Style (Polaroid) */
 .bakery-card {
     background: var(--paper-color);
