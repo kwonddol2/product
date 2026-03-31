@@ -1,219 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SeoulMate ✦ AI Saju Reading</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SeoulMate ✦ Your Cosmic Korean Destiny</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app">
-        <div class="top-bar">
-            <div class="logo cin">Seoul<span>Mate</span> ✦</div>
-            <div class="pts">✦ <span id="topPts">0</span> pts</div>
-        </div>
 
-        <!-- ===== HOME ===== -->
-        <div class="screen on" id="s-home">
-            <div class="hero">
-                <span class="hero-badge">서울 · SEOUL · SOUL · FATE</span>
-                <h1>You've been living<br>without knowing<br><em>your true fate.</em></h1>
-                <div class="hero-quote">"Korean Saju has predicted the fates of kings, generals, and scholars for over 2,000 years. Your birth moment contains a cosmic blueprint — and most people never read it."</div>
-            </div>
-            <div class="trad-grid">
-                <div class="tc"><span class="tc-hanja">四柱</span><span class="tc-title">Four Pillars</span><span class="tc-desc">8 characters encode your entire destiny</span></div>
-                <div class="tc"><span class="tc-hanja">五行</span><span class="tc-title">Five Elements</span><span class="tc-desc">Wood·Fire·Earth·Metal·Water in your soul</span></div>
-                <div class="tc"><span class="tc-hanja">朝鮮</span><span class="tc-title">Joseon Legacy</span><span class="tc-desc">500 years of royal court wisdom</span></div>
-            </div>
-            <div class="facts">
-                <div class="fact"><div class="fact-n">82%</div><div class="fact-t">of Koreans have consulted a Saju master at least once. Every New Year, millions visit a 사주쟁이 to receive their annual fortune.</div></div>
-                <div class="fact"><div class="fact-n">궁합</div><div class="fact-t">Before marriage, Korean families traditionally exchange Saju to check compatibility.</div></div>
-                <div class="fact"><div class="fact-n">✦</div><div class="fact-t">Your 길흉화복 tells you exactly what to avoid, what fits you perfectly, and who your fated partner is.</div></div>
-            </div>
+<!-- STARFIELD -->
+<div class="stars" id="stars"></div>
 
-            <div class="inp-card" id="input-form">
-                <h2>Reveal My 길흉화복 · Free</h2>
-                <p class="inp-sub">Powered by AI · Based on 2,000 years of Korean Saju tradition</p>
-                <span class="step-lbl">① Birth Date</span>
-                <div class="sel-row">
-                    <select id="yr"><option value="">Year</option></select>
-                    <select id="mo">
-                        <option value="">Month</option>
-                        <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
-                        <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
-                        <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
-                        <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
-                    </select>
-                    <select id="dy"><option value="">Day</option></select>
-                </div>
-                <div style="margin-bottom:1rem;">
-                    <select id="hr" class="sel-full">
-                        <option value="">Birth hour (optional)</option>
-                        <option value="Rat">00–01 · Rat 子</option><option value="Ox">02–03 · Ox 丑</option>
-                        <option value="Tiger">04–05 · Tiger 寅</option><option value="Rabbit">06–07 · Rabbit 卯</option>
-                        <option value="Dragon">08–09 · Dragon 辰</option><option value="Snake">10–11 · Snake 巳</option>
-                        <option value="Horse">12–13 · Horse 午</option><option value="Goat">14–15 · Goat 未</option>
-                        <option value="Monkey">16–17 · Monkey 申</option><option value="Rooster">18–19 · Rooster 酉</option>
-                        <option value="Dog">20–21 · Dog 戌</option><option value="Pig">22–23 · Pig 亥</option>
-                    </select>
-                </div>
-                <span class="step-lbl">② I am a</span>
-                <div class="pill-row">
-                    <button class="pill" onclick="selP(this,'g','Man')">Man</button>
-                    <button class="pill" onclick="selP(this,'g','Woman')">Woman</button>
-                    <button class="pill" onclick="selP(this,'g','Non-binary')">Non-binary</button>
-                </div>
-                <span class="step-lbl">③ My Nationality</span>
-                <div style="margin-bottom:1rem;">
-                    <select id="nat" class="sel-full" onchange="updateIntent()">
-                        <option value="">Select your country...</option>
-                        <option value="KR">🇰🇷 South Korea</option><option value="US">🇺🇸 United States</option>
-                        <option value="JP">🇯🇵 Japan</option><option value="GB">🇬🇧 United Kingdom</option>
-                        <option value="OTHER">🌍 Other</option>
-                    </select>
-                </div>
-                <span class="step-lbl">④ I live in</span>
-                <div style="margin-bottom:1rem;">
-                    <select id="loc" class="sel-full">
-                        <option value="">Current city...</option>
-                        <option>Seoul, Korea</option><option>New York, USA</option><option>London, UK</option><option>Other city</option>
-                    </select>
-                </div>
-                <span class="step-lbl" id="intent-lbl">⑤ I'm open to meeting</span>
-                <div class="intent-grid" id="intent-grid">
-                    <div class="ic sel" id="ic-kr" onclick="selIntent(this,'kr')"><div class="ic-icon">🇰🇷</div><div class="ic-title">Korean</div></div>
-                    <div class="ic" id="ic-intl" onclick="selIntent(this,'intl')"><div class="ic-icon">🌏</div><div class="ic-title">International</div></div>
-                </div>
-                <button class="cta" id="readBtn" onclick="startReading()">Reveal My Fate + K-pop Idol Match ✦</button>
-            </div>
-        </div>
+<div class="app">
+<div class="top-bar">
+  <div class="logo cin">Seoul<span>Mate</span> ✦</div>
+  <div class="top-right">
+    <div class="zodiac-badge" id="zodiac-badge" style="display:none">🐉 <span id="zodiac-nick-short"></span></div>
+    <div class="pts-badge">✦ <span id="topPts">0</span></div>
+  </div>
+</div>
 
-        <!-- ===== LOADING ===== -->
-        <div class="screen" id="s-load">
-            <div class="loading">
-                <div class="orb"></div>
-                <div class="load-text" id="loadTxt">Reading your Four Pillars...</div>
-                <div class="load-sub" id="loadSub">Aligning Heaven · Earth · Human stems</div>
-            </div>
-        </div>
+<!-- ===== HOME ===== -->
+<div class="screen on" id="s-home">
+  <div class="hero">
+    <span style="font-size:10px;letter-spacing:4px;font-family:'Cinzel',serif;color:var(--t2);display:block;margin-bottom:0.75rem;">🌙 서울 · SEOUL · SOUL · FATE 🌙</span>
+    <h1>You've been living<br>without knowing<br><em>your true fate.</em></h1>
+  </div>
 
-        <!-- ===== RESULT ===== -->
-        <div class="screen" id="s-result">
-            <div class="result-hero">
-                <div class="rtag">✦ AI Saju Reading · SeoulMate</div>
-                <h2 style="font-family:'Cinzel',serif;font-size:18px;font-weight:600;margin-bottom:0.4rem;color:var(--text);">Your <span class="gold">길흉화복</span> is revealed</h2>
-                <p style="font-size:13px;color:var(--text2);font-style:italic;" id="r-elem"></p>
-                <div class="oh-row" id="oh-row"></div>
-            </div>
-            <div class="sec">
-                <span class="sec-label">✦ Your AI Saju Reading</span>
-                <div class="card gold-card" id="ai-reading-card">
-                    <div class="ai-text" id="ai-reading-text">Calculating your Four Pillars...</div>
-                </div>
-                <span class="sec-label">길흉화복 · Fate Map</span>
-                <div class="gc-grid">
-                    <div class="gc-box gc-avoid"><h4>⚠ 피해야 할 것 · Avoid</h4><ul id="gc-avoid"></ul></div>
-                    <div class="gc-box gc-good"><h4>✦ 잘 맞는 것 · Fits You</h4><ul id="gc-good"></ul></div>
-                    <div class="gc-box gc-must"><h4>→ 꼭 해야 할 것 · Must Do</h4><ul id="gc-must"></ul></div>
-                    <div class="gc-box gc-never"><h4>✗ 절대 하면 안 되는 것</h4><ul id="gc-never"></ul></div>
-                </div>
-                <span class="sec-label">연애운 · Love Fate Preview</span>
-                <div class="card" style="font-size:14px;line-height:1.8;color:var(--text);" id="love-preview"></div>
-                <button class="cta" onclick="goTab('idol')" style="margin-bottom:8px;">See My K-pop Idol Match ✦</button>
-            </div>
-        </div>
+  <!-- PHILOSOPHY QUOTE -->
+  <div class="cosmos-quote">
+    <span class="cq-hanja">四柱八字</span>
+    <p>"According to Saju Myeongli, 사주 is the <strong style="color:var(--gl)">cosmic code</strong> granted by the universe at the moment of birth. The Eight Characters are a person's life code and fingerprint — a symbol of individual traits according to birth year, month, day, and hour."</p>
+    <div class="cq-sub">사주명리 · Ancient Korean Destiny Science</div>
+  </div>
 
-        <!-- ===== IDOL SCREEN ===== -->
-        <div class="screen" id="s-idol">
-            <div class="idol-header">
-                <div class="rtag">★ K-POP 궁합 · Idol Compatibility</div>
-                <h2 style="font-family:'Cinzel',serif;font-size:18px;font-weight:600;margin-bottom:0.5rem;color:var(--text);">Your K-pop<br><span class="gold">Saju Match</span></h2>
-            </div>
-            <div class="filter-row" id="idol-filter-row">
-                <button class="ftab active" onclick="filterIdols('All',this)">All ✦</button>
-                <button class="ftab" onclick="filterIdols('BTS',this)">BTS</button>
-                <button class="ftab" onclick="filterIdols('BLACKPINK',this)">BLACKPINK</button>
-            </div>
-            <div class="idol-grid" id="idol-grid"></div>
-            <div id="idol-detail-wrap"></div>
-        </div>
+  <div class="phil-card">
+    <h3>🔮 WHAT IS SAJU? · 사주란 무엇인가</h3>
+    <p>In Korean tradition, every person is born with a unique <span class="highlight">Destiny Code</span> woven from the cosmos — your personal <span class="highlight">Cosmic Blueprint</span>. Your birth moment generates eight sacred characters (팔자) that reveal your <span class="highlight">Energy Vibe</span>, your strengths, your shadows, and most importantly — <span class="highlight">who your soul is looking for</span>. Korean kings consulted Saju masters before every major decision. Today, 82% of Koreans still check their Saju — and now you can too. ✨</p>
+  </div>
 
-        <!-- ===== MATCH SCREEN ===== -->
-        <div class="screen" id="s-match">
-            <div style="text-align:center;padding:1.5rem 1.25rem 1rem;">
-                <div class="rtag">✦ 운명의 상대 · Fated Matches</div>
-                <h2 style="font-family:'Cinzel',serif;font-size:18px;font-weight:600;margin-bottom:0.5rem;color:var(--text);">2 people whose Saju<br>completes yours</h2>
-                <p style="font-size:12px;color:var(--text2);font-style:italic;" id="match-intro-p"></p>
-            </div>
-            <div id="match-cards"></div>
-        </div>
+  <!-- ENERGY ELEMENTS STRIP -->
+  <div class="energy-strip">
+    <div class="energy-pill" style="background:rgba(74,222,128,0.1);border-color:rgba(74,222,128,0.3);color:#86EFAC;">🌿 Wood · Growth Energy</div>
+    <div class="energy-pill" style="background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.3);color:#FDBA74;">🔥 Fire · Passion Energy</div>
+    <div class="energy-pill" style="background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.3);color:#FDE68A;">🌍 Earth · Stability Energy</div>
+    <div class="energy-pill" style="background:rgba(148,163,184,0.1);border-color:rgba(148,163,184,0.3);color:#CBD5E1;">⚡ Metal · Precision Energy</div>
+    <div class="energy-pill" style="background:rgba(96,165,250,0.1);border-color:rgba(96,165,250,0.3);color:#93C5FD;">💧 Water · Flow Energy</div>
+  </div>
 
-        <!-- ===== CHAT SCREEN ===== -->
-        <div class="screen" id="s-chat">
-            <div id="chat-list-view">
-                <div style="padding:1.25rem 1.25rem 0.75rem;">
-                    <div class="rtag">✦ Messages · 채팅</div>
-                    <h2 style="font-family:'Cinzel',serif;font-size:17px;font-weight:600;color:var(--text);">Your Conversations</h2>
-                </div>
-                <div class="chat-list" id="chat-list"></div>
-            </div>
-            <div id="chat-convo-view" style="display:none;">
-                <div class="convo-header">
-                    <button class="back-btn" onclick="backToList()">←</button>
-                    <div class="convo-avatar" id="convo-avatar">😊</div>
-                    <div>
-                        <div class="convo-name cin" id="convo-name">Junho</div>
-                        <div class="convo-status">● Online now</div>
-                    </div>
-                    <div class="convo-compat" id="convo-compat">94% 궁합</div>
-                </div>
-                <div class="messages" id="messages"></div>
-                <div class="ice-breaker" id="ice-wrap">
-                    <div class="ice-title">✦ Saju Ice-Breakers</div>
-                    <div class="ice-chips" id="ice-chips"></div>
-                </div>
-                <div class="msg-input-wrap">
-                    <input class="msg-input" id="msgInput" type="text" placeholder="Send a message..." onkeypress="if(event.key==='Enter')sendMsg()">
-                    <button class="send-btn" onclick="sendMsg()">➤</button>
-                </div>
-            </div>
-        </div>
+  <div class="trad-grid">
+    <div class="tc"><span class="tc-h">四柱</span><span class="tc-t">4 Pillars</span><span class="tc-d">Your destiny blueprint</span></div>
+    <div class="tc"><span class="tc-h">五行</span><span class="tc-t">5 Elements</span><span class="tc-d">Your energy vibe</span></div>
+    <div class="tc"><span class="tc-h">朝鮮</span><span class="tc-t">Joseon</span><span class="tc-d">500yr royal wisdom</span></div>
+  </div>
 
-        <!-- ===== DAILY SCREEN ===== -->
-        <div class="screen" id="s-daily">
-            <div class="daily-hero">
-                <div class="rtag">✦ 오늘의 운세 · Today</div>
-                <div id="today-lbl"></div>
-                <div class="score-circle"><div class="score-num" id="d-score">—</div><div class="score-lbl">TODAY</div></div>
-                <p style="font-size:13px;color:var(--text2);font-style:italic;margin-top:0.5rem;" id="d-desc">Enter your Saju first</p>
-            </div>
-            <div class="sec">
-                <div class="bio-row"><div class="bio-lbl">Love 연애</div><div class="bio-track"><div class="bio-fill" id="b-love" style="background:#DCA0A0;width:0%;"></div></div><div class="bio-pct" id="b-love-n">—</div></div>
-                <div class="bio-row"><div class="bio-lbl">Wealth 재물</div><div class="bio-track"><div class="bio-fill" id="b-money" style="background:#A0C0DC;width:0%;"></div></div><div class="bio-pct" id="b-money-n">—</div></div>
-                <div class="bio-row"><div class="bio-lbl">Health 건강</div><div class="bio-track"><div class="bio-fill" id="b-health" style="background:#A0DCA0;width:0%;"></div></div><div class="bio-pct" id="b-health-n">—</div></div>
-                <div class="daily-grid" id="daily-items"></div>
-            </div>
-            <div class="pts-card">
-                <div style="display:flex;justify-content:space-between;align-items:center;">
-                    <div><div style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--text);">Your Points</div></div>
-                    <div style="text-align:right;"><div style="font-family:'Cinzel',serif;font-size:28px;font-weight:700;color:var(--gold);" id="pts-big">0</div></div>
-                </div>
-                <div class="prog-track"><div class="prog-fill" id="pts-bar" style="width:0%;"></div></div>
-            </div>
-            <div style="padding:0 1.25rem;"><button class="cta" id="daily-btn" onclick="claimDaily()">Claim Today's +10 Points ✦</button></div>
-        </div>
+  <!-- ZODIAC WELCOME (shown after input) -->
+  <div class="zodiac-welcome" id="zodiac-welcome" style="display:none;">
+    <div class="zodiac-animal" id="zodiac-emoji">🐉</div>
+    <div class="zodiac-name cin" id="zodiac-animal-name">Year of the Dragon</div>
+    <div class="zodiac-nick" id="zodiac-nickname">✨ Luminous Dragon ✨</div>
+    <div class="zodiac-desc" id="zodiac-desc">Your cosmic animal spirit. This symbol accompanies you throughout your SeoulMate journey.</div>
+  </div>
 
-        <!-- BOTTOM TABS -->
-        <div class="bottom-tabs">
-            <button class="bt active" id="bt-home" onclick="goTab('home')"><span class="bt-icon">☽</span><span class="bt-label">Saju</span></button>
-            <button class="bt" id="bt-idol" onclick="goTab('idol')"><span class="bt-icon">★</span><span class="bt-label">Idols</span></button>
-            <button class="bt" id="bt-match" onclick="goTab('match')"><span class="bt-icon">♡</span><span class="bt-label">Matches</span></button>
-            <button class="bt" id="bt-chat" onclick="goTab('chat')"><span class="bt-icon">💬</span><span class="bt-label">Chat</span></button>
-            <button class="bt" id="bt-daily" onclick="goTab('daily')"><span class="bt-icon">✦</span><span class="bt-label">Daily</span></button>
-        </div>
+  <div class="inp-card" id="input-form">
+    <h2 style="font-family:'Cinzel',serif;font-size:15px;letter-spacing:1.5px;margin-bottom:0.3rem;text-align:center;color:var(--text);">🔮 Reveal My Fate — Free</h2>
+    <p style="font-size:13px;color:var(--t2);font-style:italic;margin-bottom:1.25rem;text-align:center;">⚡ AI-powered · Real Korean Saju · Includes K-pop idol match</p>
+    <span class="step-lbl">① 📅 Birth Date</span>
+    <div class="sel-row">
+      <select id="yr"><option value="">Year</option></select>
+      <select id="mo"><option value="">Month</option>
+        <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
+        <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
+        <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
+        <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+      </select>
+      <select id="dy"><option value="">Day</option></select>
     </div>
+    <div style="margin-bottom:1rem;"><select id="hr" class="sel-full">
+      <option value="">⏰ Birth hour (optional)</option>
+      <option value="Rat">🐀 00–01 · Rat 子</option><option value="Ox">🐂 02–03 · Ox 丑</option>
+      <option value="Tiger">🐅 04–05 · Tiger 寅</option><option value="Rabbit">🐇 06–07 · Rabbit 卯</option>
+      <option value="Dragon">🐉 08–09 · Dragon 辰</option><option value="Snake">🐍 10–11 · Snake 巳</option>
+      <option value="Horse">🐎 12–13 · Horse 午</option><option value="Goat">🐐 14–15 · Goat 未</option>
+      <option value="Monkey">🐒 16–17 · Monkey 申</option><option value="Rooster">🐓 18–19 · Rooster 酉</option>
+      <option value="Dog">🐕 20–21 · Dog 戌</option><option value="Pig">🐖 22–23 · Pig 亥</option>
+    </select></div>
+    <span class="step-lbl">② 🙋 I am a</span>
+    <div class="pill-row">
+      <button class="pill" onclick="selP(this,'g','Man')">👨 Man</button>
+      <button class="pill" onclick="selP(this,'g','Woman')">👩 Woman</button>
+      <button class="pill" onclick="selP(this,'g','Other')">🌈 Other</button>
+    </div>
+    <span class="step-lbl">③ 🌍 My Nationality</span>
+    <div style="margin-bottom:1rem;"><select id="nat" class="sel-full" onchange="updateIntent()">
+      <option value="">Select country...</option>
+      <option value="KR">🇰🇷 South Korea</option><option value="US">🇺🇸 United States</option>
+      <option value="JP">🇯🇵 Japan</option><option value="GB">🇬🇧 United Kingdom</option>
+      <option value="AU">🇦🇺 Australia</option><option value="CA">🇨🇦 Canada</option>
+      <option value="FR">🇫🇷 France</option><option value="DE">🇩🇪 Germany</option>
+      <option value="TH">🇹🇭 Thailand</option><option value="PH">🇵🇭 Philippines</option>
+      <option value="VN">🇻🇳 Vietnam</option><option value="ID">🇮🇩 Indonesia</option>
+      <option value="MY">🇲🇾 Malaysia</option><option value="SG">🇸🇬 Singapore</option>
+      <option value="TW">🇹🇼 Taiwan</option><option value="MX">🇲🇽 Mexico</option>
+      <option value="BR">🇧🇷 Brazil</option><option value="OTHER">🌍 Other</option>
+    </select></div>
+    <span class="step-lbl" id="intent-lbl">④ 💑 I'm open to meeting</span>
+    <div class="intent-grid" id="intent-grid">
+      <div class="ic sel" id="ic-kr" onclick="selIntent(this,'kr')"><div style="font-size:20px;margin-bottom:5px;">🇰🇷</div><div class="ic-title">Korean</div><div class="ic-desc">Korean partners first</div></div>
+      <div class="ic" id="ic-intl" onclick="selIntent(this,'intl')"><div style="font-size:20px;margin-bottom:5px;">🌏</div><div class="ic-title">International</div><div class="ic-desc">From your region</div></div>
+      <div class="ic" id="ic-both" onclick="selIntent(this,'both')" style="grid-column:1/-1;"><div style="font-size:20px;margin-bottom:5px;">✨</div><div class="ic-title">Open to Both</div><div class="ic-desc">Best cosmic fit wins</div></div>
+    </div>
+    <button class="cta" onclick="startReading()">✨ Reveal My Fate + K-pop Match ✨</button>
+    <p style="font-size:11px;color:var(--t2);text-align:center;margin-top:0.75rem;font-style:italic;">🔒 No signup · ⚡ Instant · 💫 100% free</p>
+  </div>
+</div>
 
-    <script src="main.js"></script>
+<!-- LOADING -->
+<div class="screen" id="s-load">
+  <div class="loading">
+    <div class="orb"></div>
+    <div class="load-text" id="loadTxt">✨ Reading your Four Pillars...</div>
+    <div class="load-sub" id="loadSub">🌌 Aligning Heaven · Earth · Human stems</div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="screen" id="s-result">
+  <div style="text-align:center;padding:1.5rem 1.25rem 1rem;">
+    <div class="rtag">✦ AI Saju Reading · SeoulMate</div>
+    <h2 style="font-family:'Cinzel',serif;font-size:18px;font-weight:600;margin-bottom:0.4rem;color:var(--text);">🌙 Your <span style="color:var(--gold);">길흉화복</span> is revealed</h2>
+    <p style="font-size:13px;color:var(--t2);font-style:italic;" id="r-elem"></p>
+    <div class="oh-row" id="oh-row"></div>
+  </div>
+  <div class="sec">
+    <span class="sec-lbl">🤖 YOUR AI SAJU READING</span>
+    <div class="card gold-card"><div class="ai-text streaming" id="ai-text">⏳ Channeling 2,000 years of Korean wisdom...</div></div>
+    <span class="sec-lbl">🗺️ FATE MAP · 길흉화복</span>
+    <div class="gc-grid">
+      <div class="gc-box gc-avoid"><h4>⚠️ AVOID · 피해야 할 것</h4><ul id="gc-avoid"></ul></div>
+      <div class="gc-box gc-good"><h4>✅ FITS YOU · 잘 맞는 것</h4><ul id="gc-good"></ul></div>
+      <div class="gc-box gc-must"><h4>➡️ MUST DO · 꼭 해야 할 것</h4><ul id="gc-must"></ul></div>
+      <div class="gc-box gc-never"><h4>🚫 NEVER · 절대 금지</h4><ul id="gc-never"></ul></div>
+    </div>
+    <div class="divider"><div class="dl"></div><div class="ds">💕</div><div class="dl"></div></div>
+    <span class="sec-lbl">💖 LOVE DESTINY · 연애운</span>
+    <div class="card" style="font-size:14px;line-height:1.8;color:var(--text);" id="love-preview"></div>
+    <div class="blur-card" style="margin-bottom:1.25rem;">
+      <div class="blur-inner">Your 인연 window opens 2025–2027. The exact meeting timing and your fated partner's energy signature are encoded in your Hour Pillar 壬子. Their nationality and appearance traits are visible in the premium reading...</div>
+      <div class="blur-over"><span>🔒 Unlock Full Reading ✦</span></div>
+    </div>
+    <!-- SHARE CARD -->
+    <span class="sec-lbl">📲 SHARE YOUR READING</span>
+    <div class="share-card" id="shareCardEl">
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--t2);margin-bottom:0.5rem;">SeoulMate ✦ COSMIC READING</div>
+      <div style="font-size:32px;margin-bottom:0.5rem;" id="share-zodiac">🐉</div>
+      <div style="font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--gold);margin-bottom:0.25rem;" id="share-elem">Wood · Fire</div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:0.75rem;" id="share-nick">Luminous Dragon</div>
+      <div style="font-family:'Cinzel',serif;font-size:11px;color:var(--t2);">🌙 seoulmate.app</div>
+    </div>
+    <div class="share-btns">
+      <button class="share-btn" onclick="alert('Share feature: download card image for Instagram Stories!')">📸 Instagram Story</button>
+      <button class="share-btn" onclick="alert('Share feature: post to TikTok!')">🎵 TikTok</button>
+      <button class="share-btn" onclick="alert('Share feature: copy link!')">🔗 Copy Link</button>
+    </div>
+    <div style="margin-top:1rem;">
+      <button class="cta" onclick="goTab('idol')" style="margin-bottom:8px;">⭐ See My K-pop Idol Match ⭐</button>
+      <button class="cta-outline" onclick="goTab('match')">💫 See My Fated Matches</button>
+    </div>
+    <div style="background:var(--bg2);border:0.5px solid var(--border2);border-radius:14px;padding:1.5rem;text-align:center;margin:1rem 0;">
+      <h3 style="font-family:'Cinzel',serif;font-size:15px;margin-bottom:0.5rem;color:var(--text);">🌟 Unlock Your Full Destiny</h3>
+      <p style="font-size:13px;color:var(--t2);font-style:italic;margin-bottom:1rem;line-height:1.7;">💫 Past life story · 🗓️ 2025–26 love timing · 🏥 Health guide · 📊 10-year cycle</p>
+      <div class="price-row">
+        <div class="pb"><div class="pn">Full Reading</div><div class="pp" style="color:var(--gold);">$6.99</div><div class="pd">One-time</div></div>
+        <div class="pb hot"><div class="pn">✦ Fate + Match</div><div class="pp" style="color:var(--gold);">$9.99</div><div class="pd">Reading + matches</div></div>
+      </div>
+      <button class="cta">🔮 Unlock My Full Saju ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- IDOL SCREEN -->
+<div class="screen" id="s-idol">
+  <div class="idol-header">
+    <div class="rtag" style="margin-bottom:0.75rem;">⭐ K-POP 궁합 · Idol Compatibility</div>
+    <h2 style="font-family:'Cinzel',serif;font-size:18px;font-weight:600;margin-bottom:0.5rem;color:var(--text);">Your K-pop<br><span style="color:var(--gold);">Destiny Match</span> ⭐</h2>
+    <p style="font-size:12px;color:var(--t2);font-style:italic;line-height:1.7;padding:0 0.5rem;">📱 Tap 📷 to visit their Instagram · Real birth dates · Real Saju</p>
+  </div>
+  <!-- TODAY'S TOP 3 RANKING -->
+  <div class="top3-wrap">
+    <div class="top3-title">🏆 TODAY'S TOP 3 COSMIC MATCHES</div>
+    <div class="top3-row" id="top3-row"></div>
+  </div>
+  <div class="filter-bar" id="idol-filters">
+    <button class="ftab active" onclick="filterIdols('All',this)">⭐ All</button>
+    <button class="ftab" onclick="filterIdols('BTS',this)">BTS</button>
+    <button class="ftab" onclick="filterIdols('BLACKPINK',this)">BLACKPINK</button>
+    <button class="ftab" onclick="filterIdols('aespa',this)">aespa</button>
+    <button class="ftab" onclick="filterIdols('NewJeans',this)">NewJeans</button>
+    <button class="ftab" onclick="filterIdols('IVE',this)">IVE</button>
+    <button class="ftab" onclick="filterIdols('Stray Kids',this)">Stray Kids</button>
+    <button class="ftab" onclick="filterIdols('SEVENTEEN',this)">SVT</button>
+    <button class="ftab" onclick="filterIdols('Solo',this)">Solo ✦</button>
+  </div>
+  <div class="idol-grid" id="idol-grid"></div>
+  <div id="idol-detail-wrap"></div>
+  <div style="height:1rem;"></div>
+</div>
+
+<!-- MATCH SCREEN -->
+<div class="screen" id="s-match">
+  <div style="text-align:center;padding:1.5rem 1.25rem 1rem;">
+    <div class="rtag" style="margin-bottom:0.75rem;">💕 운명의 상대 · Fated Matches</div>
+    <h2 style="font-family:'Cinzel',serif;font-size:18px;font-weight:600;margin-bottom:0.5rem;color:var(--text);">💫 2 People Whose Energy<br>Completes Yours</h2>
+    <p style="font-size:12px;color:var(--t2);font-style:italic;line-height:1.7;" id="match-intro-p">🤖 AI-generated profiles · Real members joining soon as SeoulMate grows</p>
+  </div>
+  <div id="match-cards"></div>
+  <div style="padding:0 1.25rem;">
+    <div style="background:var(--bg2);border:0.5px solid var(--border2);border-radius:14px;padding:1.5rem;text-align:center;">
+      <h3 style="font-family:'Cinzel',serif;font-size:15px;margin-bottom:0.5rem;color:var(--text);">👁️ Reveal Their Faces</h3>
+      <p style="font-size:13px;color:var(--t2);font-style:italic;margin-bottom:1rem;line-height:1.7;">Or collect <strong style="color:var(--gold);">500 ✦ pts</strong> for one free reveal</p>
+      <div class="price-row">
+        <div class="pb"><div class="pn">Reveal 1</div><div class="pp" style="color:var(--gold);">$9.99</div><div class="pd">One profile</div></div>
+        <div class="pb hot"><div class="pn">✦ SoulMate</div><div class="pp" style="color:var(--gold);">$19.99</div><div class="pd">/mo unlimited</div></div>
+      </div>
+      <button class="cta" style="margin-bottom:8px;">💫 Unlock & Reveal ✦</button>
+      <button class="cta-outline" onclick="goTab('daily')">🎰 Earn Free Points Daily →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT SCREEN -->
+<div class="screen" id="s-chat">
+  <div id="chat-list-view">
+    <div style="padding:1.25rem 1.25rem 0.75rem;">
+      <div class="rtag" style="margin-bottom:0.75rem;">💬 Messages · 채팅</div>
+      <h2 style="font-family:'Cinzel',serif;font-size:17px;font-weight:600;color:var(--text);">Your Conversations 💌</h2>
+    </div>
+    <div style="padding:0 1.25rem;" id="chat-list-inner"></div>
+    <div style="padding:1rem 1.25rem;background:rgba(200,146,42,0.05);border:0.5px solid var(--border);border-radius:12px;margin:0 1.25rem;text-align:center;">
+      <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:1.5px;color:var(--gold);margin-bottom:0.5rem;">✦ 🔒 Unlock Messaging</div>
+      <p style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:0.75rem;">💬 Upgrade to Fate plan to send & receive messages with your cosmic matches</p>
+      <button class="cta" style="padding:10px 24px;">⭐ Upgrade to Fate — $9.99/mo</button>
+    </div>
+  </div>
+  <div id="chat-convo-view" style="display:none;">
+    <div class="convo-header">
+      <button class="back-btn" onclick="backToList()">←</button>
+      <div style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid var(--border);" id="convo-avatar">😊</div>
+      <div><div style="font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--text);" id="convo-name">Junho</div><div style="font-size:11px;color:#6EE7B7;">● Online now</div></div>
+      <div style="margin-left:auto;font-family:'Cinzel',serif;font-size:11px;color:var(--gold);" id="convo-compat">94% 궁합</div>
+    </div>
+    <div style="padding:1rem 1.25rem;display:flex;flex-direction:column;gap:10px;min-height:300px;" id="messages"></div>
+    <div class="ice-breaker" id="ice-wrap" style="margin:0 1.25rem;"><div class="ice-title">✨ Saju Ice-Breakers</div><div class="ice-chips" id="ice-chips"></div></div>
+    <div class="msg-input-wrap">
+      <input class="msg-input" id="msgInput" type="text" placeholder="Send a message..." onkeypress="if(event.key==='Enter')sendMsg()">
+      <button class="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- DAILY / GACHA SCREEN -->
+<div class="screen" id="s-daily">
+  <div class="daily-hero">
+    <div class="rtag" style="display:inline-block;margin-bottom:0.5rem;">🎰 오늘의 운세 · Today's Fortune</div>
+    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--t2);" id="today-lbl"></div>
+    <p style="font-size:13px;color:var(--t2);font-style:italic;margin-top:0.5rem;">🎱 Draw your cosmic fortune for today · 오미쿠지 inspired</p>
+  </div>
+
+  <div class="gacha-section">
+    <div class="fortune-reveal" id="fortune-reveal"></div>
+    <div id="gacha-machine-wrap">
+      <p style="font-size:13px;color:var(--t2);font-style:italic;margin-bottom:1.25rem;line-height:1.7;">🎋 Like drawing an omikuji at a Korean temple — shake the cosmos and discover what the universe has written for you today!</p>
+      <div class="gacha-machine" onclick="shakeGacha()">
+        <div class="gacha-ring"></div>
+        <div class="gacha-ring2"></div>
+        <div class="gacha-orb" id="gacha-orb">🔮</div>
+        <div class="gacha-particles" id="gacha-particles"></div>
+      </div>
+      <button class="gacha-btn" id="gacha-btn" onclick="drawFortune()">🎰 Draw My Fortune ✦</button>
+      <div class="gacha-count" id="gacha-count">✨ Free draws today: 1 remaining</div>
+    </div>
+  </div>
+
+  <!-- BIORHYTHM (shows after reading) -->
+  <div class="bio-section sec" id="bio-section" style="display:none;">
+    <div class="divider"><div class="dl"></div><div class="ds">⚡</div><div class="dl"></div></div>
+    <span class="sec-lbl">📊 YOUR ENERGY TODAY</span>
+    <div class="bio-row"><div class="bio-lbl">Love 💕</div><div class="bio-track"><div class="bio-fill" id="b-love" style="background:#F472B6;width:0%;"></div></div><div class="bio-pct" id="b-love-n">—</div></div>
+    <div class="bio-row"><div class="bio-lbl">Wealth 💰</div><div class="bio-track"><div class="bio-fill" id="b-money" style="background:#60A5FA;width:0%;"></div></div><div class="bio-pct" id="b-money-n">—</div></div>
+    <div class="bio-row"><div class="bio-lbl">Health 🌿</div><div class="bio-track"><div class="bio-fill" id="b-health" style="background:#34D399;width:0%;"></div></div><div class="bio-pct" id="b-health-n">—</div></div>
+    <div class="bio-row"><div class="bio-lbl">Energy ⚡</div><div class="bio-track"><div class="bio-fill" id="b-energy" style="background:var(--gold);width:0%;"></div></div><div class="bio-pct" id="b-energy-n">—</div></div>
+  </div>
+
+  <div class="pts-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div><div style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--text);">✦ Your Points</div><div style="font-size:12px;color:var(--t2);">500 pts = 1 free match reveal</div></div>
+      <div style="text-align:right;"><div style="font-family:'Cinzel',serif;font-size:28px;font-weight:700;color:var(--gold);" id="pts-big">0</div><div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:var(--t2);">/ 500</div></div>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="pts-bar" style="width:0%;"></div></div>
+    <div class="prog-labels"><span>0</span><span style="color:var(--gold);">🎁 Free Reveal ✦</span></div>
+    <div class="earn-list">
+      <div class="er"><span>🎰 Draw daily fortune</span><span class="er-pts">+10 pts/day</span></div>
+      <div class="er"><span>📸 Upload 관상 selfie</span><span class="er-pts">+20 pts</span></div>
+      <div class="er"><span>⭐ Share idol match</span><span class="er-pts">+30 pts</span></div>
+      <div class="er"><span>👥 Invite a friend</span><span class="er-pts">+100 pts</span></div>
+      <div class="er"><span>✅ Complete profile</span><span class="er-pts">+50 pts</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM TABS -->
+<div class="btab">
+  <button class="bt active" id="bt-home" onclick="goTab('home')"><span class="bt-icon">☽</span><span class="bt-lbl">Saju</span></button>
+  <button class="bt" id="bt-idol" onclick="goTab('idol')"><span class="bt-icon">⭐</span><span class="bt-lbl">Idols</span></button>
+  <button class="bt" id="bt-match" onclick="goTab('match')"><span class="bt-icon">💕</span><span class="bt-lbl">Match</span></button>
+  <button class="bt" id="bt-chat" onclick="goTab('chat')"><span class="bt-icon">💬</span><span class="bt-lbl">Chat</span></button>
+  <button class="bt" id="bt-daily" onclick="goTab('daily')"><span class="bt-icon">🎰</span><span class="bt-lbl">Fortune</span></button>
+</div>
+</div>
+
+<script src="main.js"></script>
 </body>
 </html>
